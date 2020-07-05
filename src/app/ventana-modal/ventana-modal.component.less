@@ -1,0 +1,48 @@
+ventana-modal {
+    /* Predeterminadamente oculta */
+    display: none;
+
+    .ventana-modal {
+        /* contenedor modal fijo en toda la pantalla */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        /* El índice Z (profundidad) debe ser mayor que todo .ventana-modal-fondo */
+        z-index: 1000;
+        
+        /* Habilitar barras de desplazamiento para ventanas modales grandes */
+        overflow: auto;
+
+        .ventana-modal-contenido {
+            padding: 20px;
+            background: #fff;
+
+            /* La margen expone parte del fondo modal */
+            margin: 40px;
+        }
+    }
+
+    .ventana-modal-fondo {
+        /* Fondo modal que ocupa toda la pantalla */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        /* Fondo oscuro semi-transparente  */
+        background-color: #000;
+        opacity: 0.75;
+        
+        /* El índice Z (profundidad) debe ser menor que .ventana-modal y por encima de todo lo demás  */
+        z-index: 900;
+    }
+}
+
+body.ventana-modal-abrir {
+    /* El desbordamiento del contenido está oculto para ocultar la barra de desplazamiento principal cuando la ventana modal está abierta */
+    overflow: hidden;
+}

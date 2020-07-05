@@ -1,0 +1,36 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>Menú Principal</ion-list-header>
+          <ion-note>Alquiler de Videojuegos</ion-note>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of paginas; let i = index">
+            <ion-item (click)="selectedIndex = i; toggleDetails(p)" routerDirection="root" [routerLink]="[p.url]"
+              lines="none" detail="false" [class.selected]="selectedIndex == i">
+              <img [src]="p.icono">
+              <ion-label>{{ p.titulo }}</ion-label>
+
+              <div *ngIf="p.mostrarDetalles &&p.subPaginas != null">
+                <ion-list>
+                  <ion-menu-toggle auto-hide="false" *ngFor="let subP of p.subPaginas">
+                    <ion-item style="border-bottom: 1px solid #1f1c1c;background: #dcd5d5" routerDirection="root"
+                      [routerLink]="[subP.url]">
+                      <img [src]="subP.icono">
+                      <ion-label>{{ subP.titulo }}</ion-label>
+                    </ion-item>
+                  </ion-menu-toggle>
+                </ion-list>
+              </div>
+
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

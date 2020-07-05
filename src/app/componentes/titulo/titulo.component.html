@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Títulos de Videojuegos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <div>
+    <ion-button color="success" (click)="abrirVentanaModal('modalModificar')">Actualizar</ion-button>
+    <ion-button color="danger" (click)="abrirVentanaModal('modalEliminar')">Eliminar</ion-button>
+
+    <!-- 
+  	   Embed the ngx-datatable component with following property bindings/values:
+       1. sorttype - allow data to be sorted on multiple columns
+       2. headerHeight - Set height of table header at 50 pixels
+       3. footerHeight - Set height of table footer at 50 pixels
+       4. rowHeight - Set height of table rows at 50 pixels
+       5. rows - Derives the data for the table rows from the component class 
+                 property of rows
+       6. columns - Derives the names for the table columns from the component 
+                    class property of columns
+       7. columnMode - Use of standard, flex or force - Force value makes columns 
+                       equidistant and span the width of the parent container
+       8. limit - the number of records to display before paginating the results
+    -->
+
+    <ngx-datatable class="material" [sortType]="'multi'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50"
+      [rows]="titulos" [columns]="columnas" [columnMode]="modoColumna.force" [limit]="10" [selected]="seleccion"
+      [selectionType]="tipoSeleccion.single" (select)="onSelect($event)">
+    </ngx-datatable>
+  </div>
+
+
+  <ventana-modal id="modalModificar">
+    <ion-header [translucent]="true">
+      <ion-toolbar>
+        <ion-title>Editando Título</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <form>
+      <div *ngIf="titulo">
+        <ion-item>
+          <ion-label>Nombre</ion-label>
+          <ion-input type="text" [(ngModel)]="titulo.nombre" name="nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Año</ion-label>
+          <ion-input type="text" [(ngModel)]="titulo.director" name="director"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea [(ngModel)]="titulo.protagonistas" name="protagonistas"></ion-textarea>
+        </ion-item>
+      </div>
+      <ion-button color="success" (click)="guardar('modalModificar')">Aceptar</ion-button>
+      <ion-button color="medium" (click)="cerrarVentanaModal('modalModificar');">Cerrar</ion-button>
+    </form>
+  </ventana-modal>
+
+  <ventana-modal id="modalEliminar">
+    <h1>Eliminando Título</h1>
+    <p>Está Seguro de eliminar el registro?</p>
+    <ion-button color="success" (click)="eliminar('modalEliminar')">Eliminar</ion-button>
+
+    <ion-button color="medium" (click)="cerrarVentanaModal('modalEliminar');">Cerrar</ion-button>
+  </ventana-modal>
+
+</ion-content>
