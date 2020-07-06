@@ -15,11 +15,17 @@ import { FormsModule } from '@angular/forms';
 
 import { VentanaModalModule } from './ventana-modal';
 import { TituloComponent } from './componentes/titulo/titulo.component';
+import { ClienteComponent } from './componentes/cliente/cliente.component';
+import { AlquilerComponent } from './componentes/alquiler/alquiler.component';
+
+import { CalendarModule } from 'ion2-calendar';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TituloComponent
+    TituloComponent,
+    ClienteComponent,
+    AlquilerComponent
   ],
   entryComponents: [],
   imports: [
@@ -29,7 +35,8 @@ import { TituloComponent } from './componentes/titulo/titulo.component';
     NgxDatatableModule,
     HttpClientModule,
     FormsModule,
-    VentanaModalModule
+    VentanaModalModule,
+    CalendarModule
   ],
   providers: [
     StatusBar,

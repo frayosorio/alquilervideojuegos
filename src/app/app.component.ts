@@ -13,20 +13,20 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public paginas = [
     {
-      titulo: 'Listas', url: '', icono: 'assets/icon/Listas.png', mostrarDetalles:false,
+      titulo: 'Listas', url: '#', icono: 'assets/icon/Listas.png', mostrarDetalles:false,
       subPaginas: [
-        { titulo: 'Clientes', url: '/folder/Clientes', icono: 'assets/icon/Cliente.png' },
-        { titulo: 'Empresas', url: '/folder/Clientes', icono: 'assets/icon/Empresa.png' },
-        { titulo: 'Titulos', url: 'titulos', icono: 'assets/icon/Titulo.png' }
+        { titulo: 'Clientes', url: 'clientes', icono: 'assets/icon/Cliente.png' },
+        { titulo: 'Empresas', url: '/folder/Empresas', icono: 'assets/icon/Empresa.png' },
+        { titulo: 'Títulos', url: 'titulos', icono: 'assets/icon/Titulo.png' }
       ]
     },
-    { titulo: 'Alquiler', url: '/folder/Alquiler', icono: 'assets/icon/Alquiler.png',  mostrarDetalles:false, subPaginas: null },
+    { titulo: 'Alquiler', url: 'alquileres', icono: 'assets/icon/Alquiler.png',  mostrarDetalles:false, subPaginas: null },
     {
-      titulo: 'Reportes', url: '/folder/Reportes', icono: 'assets/icon/Reportes.png', mostrarDetalles:false,
+      titulo: 'Consultas', url: '#', icono: 'assets/icon/Reportes.png', mostrarDetalles:false,
       subPaginas: [
-        { titulo: 'Clientes', url: '/folder/Clientes', icono: 'assets/icon/Clientes.png' },
-        { titulo: 'Empresas', url: '/folder/Clientes', icono: 'assets/icon/Empresas.png' },
-        { titulo: 'Titulos', url: '/folder/Clientes', icono: 'assets/icon/Titulos.png' }
+        { titulo: 'por Título', url: '/folder/ConsultasTitulos', icono: 'assets/icon/ReportesTitulos.png' },
+        { titulo: 'por Cliente', url: '/folder/ConsultasClientes', icono: 'assets/icon/ReportesClientes.png' },
+        { titulo: 'por Venta', url: '/folder/ConsultasVentas', icono: 'assets/icon/ReportesVentas.png' }
       ]
     }
   ];

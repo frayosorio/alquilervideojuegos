@@ -5,37 +5,31 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class TituloService {
+export class EmpresaService {
 
   url: string;
 
   constructor(private http: HttpClient) {
-    this.url = "http://localhost:8080/titulo";
+    this.url = "http://localhost:8080/empresa";
   }
 
-  public obtenerTitulos(): Observable<any> {
+  public obtenerEmpresas(): Observable<any> {
     let urlT = this.url + "/listar";
     return this.http.get(urlT);
   }
 
-  public guardarTitulo(titulo) {
-    this.http.post(this.url, titulo);
+  public guardarEmpresa(empresa) {
+    this.http.post(this.url, empresa);
   }
 
-  public eliminarTitulo(id) {
+  public eliminarEmpresa(id) {
     this.http.delete(this.url, id);
   }
 
 }
 
-export interface Titulo {
+export interface Empresa {
   id: number;
   nombre: string;
-  año: number;
-  protagonistas: string;
-  productor: string;
-  director: string;
-  idempresa: number;
-  precio: number;
+  idpais: number;
 };
-

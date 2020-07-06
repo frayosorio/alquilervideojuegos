@@ -4,11 +4,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
 
   <div>
-    <ion-button color="success" (click)="abrirVentanaModal('modalModificar')">Actualizar</ion-button>
-    <ion-button color="danger" (click)="abrirVentanaModal('modalEliminar')">Eliminar</ion-button>
+    <ion-button (click)="nuevo()">Agregar</ion-button>
+    <ion-button color="success" (click)="modificar()">Modificar</ion-button>
+    <ion-button color="danger" (click)="verificarEliminar()">Eliminar</ion-button>
 
     <!-- 
   	   Embed the ngx-datatable component with following property bindings/values:
@@ -26,8 +27,9 @@
     -->
 
     <ngx-datatable class="material" [sortType]="'multi'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50"
-      [rows]="titulos" [columns]="columnas" [columnMode]="modoColumna.force" [limit]="10" [selected]="seleccion"
-      [selectionType]="tipoSeleccion.single" (select)="onSelect($event)">
+      [rows]="titulos" [columns]="columnas" [columnMode]="modoColumna.force" [limit]="10"
+      [selectionType]="tipoSeleccion.single" (activate)="onActivate($event)">
+
     </ngx-datatable>
   </div>
 
@@ -39,31 +41,54 @@
       </ion-toolbar>
     </ion-header>
     <form>
-      <div *ngIf="titulo">
+      <div *ngIf="tituloEdicion">
         <ion-item>
           <ion-label>Nombre</ion-label>
-          <ion-input type="text" [(ngModel)]="titulo.nombre" name="nombre"></ion-input>
+          <ion-input type="text" [(ngModel)]="tituloEdicion.nombre" name="nombre"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Año</ion-label>
-          <ion-input type="text" [(ngModel)]="titulo.director" name="director"></ion-input>
+          <ion-input type="text" [(ngModel)]="tituloEdicion.director" name="año"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Description</ion-label>
-          <ion-textarea [(ngModel)]="titulo.protagonistas" name="protagonistas"></ion-textarea>
+          <ion-label>Protagonistas</ion-label>
+          <ion-textarea [(ngModel)]="tituloEdicion.protagonistas" name="protagonistas"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label>Productor</ion-label>
+          <ion-input type="text" [(ngModel)]="tituloEdicion.productor" name="productor"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Director</ion-label>
+          <ion-input type="text" [(ngModel)]="tituloEdicion.director" name="director"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Empresa</ion-label>
+          
+          <ion-select [(ngModel)]="tituloEdicion.idEmpresa" name="empresa" interface="popover">
+            <ion-select-option *ngFor="let empresa of empresas" [value] = "empresa.id" >{{empresa.nombre}}</ion-select-option>
+          </ion-select>
+        
+
+        </ion-item>
+        <ion-item>
+          <ion-label>Precio</ion-label>
+          <ion-input type="text" [(ngModel)]="tituloEdicion.precio" name="precio"></ion-input>
         </ion-item>
       </div>
       <ion-button color="success" (click)="guardar('modalModificar')">Aceptar</ion-button>
-      <ion-button color="medium" (click)="cerrarVentanaModal('modalModificar');">Cerrar</ion-button>
+      <ion-button color="medium" (click)="cerrarVentanaModal('modalModificar')">Cerrar</ion-button>
     </form>
   </ventana-modal>
+
+
 
   <ventana-modal id="modalEliminar">
     <h1>Eliminando Título</h1>
     <p>Está Seguro de eliminar el registro?</p>
     <ion-button color="success" (click)="eliminar('modalEliminar')">Eliminar</ion-button>
 
-    <ion-button color="medium" (click)="cerrarVentanaModal('modalEliminar');">Cerrar</ion-button>
+    <ion-button color="medium" (click)="cerrarVentanaModal('modalEliminar')">Cerrar</ion-button>
   </ventana-modal>
 
 </ion-content>

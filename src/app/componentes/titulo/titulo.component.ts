@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TituloService } from '../../servicios/titulo.service';
+import { EmpresaService } from '../../servicios/empresa.service';
 import { HttpClient } from '@angular/common/http';
 
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
@@ -14,16 +15,19 @@ import { VentanaModalService } from '../../ventana-modal';
 export class TituloComponent implements OnInit {
 
   public titulos;
+  public empresas;
 
   public columnas: any;
 
   public modoColumna = ColumnMode;
   public tipoSeleccion = SelectionType;
-  public titulo;
+  public tituloSeleccion;
+  public tituloEdicion;
 
   //public filas: any;
 
   constructor(private tituloService: TituloService,
+    private empresaService: EmpresaService,
     private http: HttpClient,
     private ventanaModalService: VentanaModalService) {
     this.columnas = [
@@ -36,7 +40,7 @@ export class TituloComponent implements OnInit {
       { name: 'precio' }
     ];
 
-    this.titulos=[];
+    this.titulos = [];
 
   }
 
@@ -46,15 +50,22 @@ export class TituloComponent implements OnInit {
 
   public listar() {
     this.tituloService.obtenerTitulos()
-      .subscribe(data => {
-        this.titulos = data;
-        window.alert(this.titulos[2].nombre);
+      .subscribe(dataT => {
+        this.titulos = dataT;
+      }
+      );
+    this.empresaService.obtenerEmpresas()
+      .subscribe(dataE => {
+        this.empresas = dataE;
+        //window.alert(this.empresas[2].nombre);
       }
       );
   }
 
-  onSelect({ seleccion }) {
-    this.titulo = seleccion;
+  onActivate(event) {
+    if (event.type == 'click') {
+      this.tituloSeleccion = event.row;
+    }
   }
 
   abrirVentanaModal(id: string) {
@@ -65,13 +76,40 @@ export class TituloComponent implements OnInit {
     this.ventanaModalService.cerrar(id);
   }
 
+  public nuevo() {
+    this.tituloEdicion = {
+      id: -1,
+      nombre: "",
+      año: new Date().getFullYear(),
+      protagonistas: "",
+      productor: "",
+      director: "",
+      idempresa: 0,
+      precio: 0
+    };
+    this.abrirVentanaModal('modalModificar');
+  }
+
+  public modificar() {
+    if (this.tituloSeleccion != null && this.tituloSeleccion.id >= 0) {
+      this.tituloEdicion = this.tituloSeleccion;
+      this.abrirVentanaModal('modalModificar');
+    }
+  }
+
+  public verificarEliminar() {
+    if (this.tituloSeleccion != null && this.tituloSeleccion.id >= 0) {
+      this.abrirVentanaModal('modalEliminar');
+    }
+  }
+
   public guardar(id: string) {
-    this.tituloService.guardarTitulo(this.titulo);
+    this.tituloService.guardarTitulo(this.tituloEdicion);
     this.ventanaModalService.cerrar(id);
   }
 
   public eliminar(id: string) {
-    //this.tituloService.guardarTitulo(this.titulo);
+    this.tituloService.eliminarTitulo(this.tituloSeleccion.id);
     this.ventanaModalService.cerrar(id);
   }
 

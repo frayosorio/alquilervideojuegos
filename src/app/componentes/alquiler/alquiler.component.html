@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Alquiler de Videojuegos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <IonItem>
+    <IonLabel>Buscar por</IonLabel>
+    <ion-select #C placeholder="Elegir una opción" (ionChange)="seleccionarBusqueda(C.value)" interface="popover">
+      <ion-select-option value="1">Fecha de préstamo</ion-select-option>
+      <ion-select-option value="2">Título del Video Juego</ion-select-option>
+      <ion-select-option value="3">Nombre del Cliente</ion-select-option>
+    </ion-select>
+  </IonItem>
+
+  <div [hidden]="ocultarBusquedaFecha">
+    <ion-item>
+      <ion-label>Rango de fechas</ion-label>
+      <ion-calendar [(ngModel)]="rangoFechas" [options]="opcionesRango" [type]="tipo" [format]="'YYYY-MM-DD'">
+      </ion-calendar>
+      <ion-button (click)="buscar(rangoFechas)">Buscar</ion-button>
+    </ion-item>
+  </div>
+  <div [hidden]="ocultarBusquedaTitulo">
+
+  </div>
+  <div [hidden]="ocultarBusquedaCliente">
+
+  </div>
+
+  <ngx-datatable class="material" [sortType]="'multi'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50"
+    [rows]="alquileres" [columns]="columnas" [columnMode]="modoColumna.force" [limit]="10"
+    [selectionType]="tipoSeleccion.single" (activate)="onActivate($event)">
+
+  </ngx-datatable>
+
+</ion-content>
